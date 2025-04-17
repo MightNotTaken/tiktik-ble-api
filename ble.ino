@@ -23,12 +23,12 @@ void setup() {
   Brightness::begin();
   Volume::begin();
   SpO2::begin();
-  WomenHealth::begin();
-  DeviceInfo::begin();
-  BodyComposition::begin();
-  WeightScale::begin();
-  Glucose::begin();
-  Temperature::begin();
+  // WomenHealth::begin();
+  // DeviceInfo::begin();
+  // BodyComposition::begin();
+  // WeightScale::begin();
+  // Glucose::begin();
+  // Temperature::begin();
 
   Battery::setLevel(87);
   HeartRate::onControlCommand([](uint8_t data) {
@@ -45,20 +45,20 @@ void setup() {
     // Add actual volume control logic here
   });
 
-  // Add callback for cycle updates
-  WomenHealth::onCycleUpdate([](uint8_t phase, uint16_t symptoms) {
-    Serial.printf("Cycle Update - Phase: %d, Symptoms: 0x%04X\n", phase, symptoms);
-    // Add actual logic here (e.g., update display, log data)
-  });
+  // // Add callback for cycle updates
+  // WomenHealth::onCycleUpdate([](uint8_t phase, uint16_t symptoms) {
+  //   Serial.printf("Cycle Update - Phase: %d, Symptoms: 0x%04X\n", phase, symptoms);
+  //   // Add actual logic here (e.g., update display, log data)
+  // });
 
-   Alarm::onAlarmChange([](uint8_t h, uint8_t m, uint8_t days, bool active) {
-    Serial.printf("Alarm %s at %02d:%02d (Days: 0x%02X)\n", 
-                 active ? "set" : "unset", h, m, days);
-  });
+  //  Alarm::onAlarmChange([](uint8_t h, uint8_t m, uint8_t days, bool active) {
+  //   Serial.printf("Alarm %s at %02d:%02d (Days: 0x%02X)\n", 
+  //                active ? "set" : "unset", h, m, days);
+  // });
 
-  Alarm::onSnoozeCommand([](uint16_t minutes) {
-    Serial.printf("Snooze activated for %d minutes\n", minutes);
-  });
+  // Alarm::onSnoozeCommand([](uint16_t minutes) {
+  //   Serial.printf("Snooze activated for %d minutes\n", minutes);
+  // });
 
   BLECustom::startAdvertising();
 }
@@ -80,24 +80,24 @@ void loop() {
   static uint8_t cyclePhase = 0;
   static uint16_t symptoms = 0;
   
-  WomenHealth::setCyclePhase(cyclePhase);
-  WomenHealth::setSymptoms(symptoms);
-  WomenHealth::setFertilityStatus(random(3)); // 0-2
+  // WomenHealth::setCyclePhase(cyclePhase);
+  // WomenHealth::setSymptoms(symptoms);
+  // WomenHealth::setFertilityStatus(random(3)); // 0-2
   
-  cyclePhase = (cyclePhase + 1) % 4; // 0-3 phases
-  symptoms = random(0xFFFF); // Simulate symptom changes
+  // cyclePhase = (cyclePhase + 1) % 4; // 0-3 phases
+  // symptoms = random(0xFFFF); // Simulate symptom changes
   
-  static float weight = 70.5f;
-  WeightScale::setValue(weight);
-  weight += 0.1f;
+  // static float weight = 70.5f;
+  // WeightScale::setValue(weight);
+  // weight += 0.1f;
   
-  static float temp = 36.6f;
-  Temperature::setValue(temp);
-  temp += 0.1f;
-  static bool alarmTriggered = false;
-  if(!alarmTriggered) {
-    Alarm::triggerAlarm();
-    alarmTriggered = true;
-  }
+  // static float temp = 36.6f;
+  // Temperature::setValue(temp);
+  // temp += 0.1f;
+  // static bool alarmTriggered = false;
+  // if(!alarmTriggered) {
+  //   Alarm::triggerAlarm();
+  //   alarmTriggered = true;
+  // }
   delay(1000);
 }
